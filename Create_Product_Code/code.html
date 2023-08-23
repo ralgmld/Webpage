@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="code.css" />
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<style>
+        /* 이미지와 텍스트 간격 조절 */
+        label img {
+            margin-right: 10px; /* 원하는 간격으로 조절 */
+            vertical-align: middle; /* 수직 정렬을 위해 */
+        }
+    </style>
+        <script src="code.js"></script>
+        <title>제품 코드 생성</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+    $(document).ready(function () {
+        $("#menu").load("../Main/Menu.html", function () {
+        //페이지 별로 다른 메뉴 css 적용도 가능
+        document.getElementById("sub_nav").classList.add("show");
+            });
+        })
+    </script>
+    </head>
+    <body>
+        <div id = "menu"></div>
+		<div class="box-container">
+		        <form onsubmit="generateCode(); return false;">
+			<div class="code_icon">
+					<img src = "../Image/code.png" width=40% class="code-image";>
+				<h1 style="font-weight: bold; text-align: center; margin:5; color:black">Create Product Code</h1>
+				</div>
+
+			<label for="company-name">
+        	<img src="../Image/company.png" width="30" height="30">업체명</label>
+            <input type="text" id="company-name" name="company-name" />
+
+            <label for="product">
+			<img src="../Image/product.png" width="30" height="30">품목</label>
+            <select id="product" name="product">
+                <option value="">--선택--</option>
+                <option value="컴퓨터">컴퓨터</option>
+                <option value="노트북">노트북</option>
+                <option value="모니터">모니터</option>
+                <option value="마우스">마우스</option>
+                <option value="키보드">키보드</option>
+            </select>
+
+            <label for="date">
+			<img src="../Image/date.png" width="30" height="30">일시</label>
+            <input type="text" id="date" name="date" maxlength="10" pattern="^(?:19|20)\d\d-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1\d|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)$" oninput="autoHyphen(this)" required />
+
+            <label for="email">
+			<img src="../Image/email.png" width="30" height="30">이메일</label>
+            <input type="text" id="email" name="email" />
+
+            <label for="tel">
+			<img src="../Image/tel.png" width="30" height="30">연락처</label>
+            <input type="tel" id="tel" name="tel" pattern="^01[0-9]-\d{4}-\d{4}$|^0[1-9][0-9]-\d{3}-\d{4}$|^0[1-9]-\d{3}-\d{4}$"/>
+            <input type="submit" value="확인" />
+            <input type="reset" value="초기화" />
+
+            <label for="result">
+			<img src="../Image/result.png" width="30" height="30">코드생성</label>
+            <input type="text" id="result" name="result" readonly="" />
+        </form>
+		</div>
+
+	
+        <footer>
+            <p>웹 사이트 제작 : 송명원, 김희연, 장하은</p>
+        </footer>
+    </body>
+</html>

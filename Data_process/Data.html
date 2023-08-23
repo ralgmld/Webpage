@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="Data.css" />
+        <title>데이터 처리</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <div id="menu"></div>
+        <div class="box-container">
+            <div class="box">
+                <form onsubmit="generateCode(); return false;">
+                    <div style="text-align: center;">
+                        <div class="Data_icon">
+                            <img src="../Image/DATA.png" width="20%;" />
+                        </div>
+                        <h1 style="font-weight: bold; text-align: left; margin: 5;">
+                            Data_Processing
+                        </h1>
+                        <p style="color: #8c8c8c;">원하시는 조회 기간을 설정해주세요.</p>
+                        <label for="startdate">
+                            <img src="../Image/date.png" width="30" height="30" /> StartDate</label
+                        >
+                        <input
+                            type="text"
+                            id="startdate"
+                            name="startdate"
+                            maxlength="10"
+                            pattern="^(?:19|20)\d\d-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1\d|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)$"
+                            oninput="autoHyphen(this)"
+                            required
+                        /><br>
+                        <label for="enddate">
+                            <img src="../Image/date.png" width="30" height="30" /> EndDate</label
+                        >
+                        &nbsp<input
+                            type="text"
+                            id="enddate"
+                            name="enddate"
+                            maxlength="10"
+                            pattern="^(?:19|20)\d\d-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1\d|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)$"
+                            oninput="autoHyphen(this)"
+                            required
+                        />
+
+                        <button id="queryButton">조회하기</button>
+                    </div>
+                </form>
+                <div id="downloadSection" class="hidden">
+                    <a id="downloadButton" href="data.zip" download="data.zip">
+                        <button id="downloadButton">다운로드</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <main>
+            <script src="Data.js"></script>
+        </main>
+
+        <br />
+        <footer>
+            <p>웹 사이트 제작 : 송명원, 김희연, 장하은</p>
+        </footer>
+        <script>
+            $(document).ready(function () {
+                // 메뉴 로드
+                $.ajax({
+                    url: '../Main/Menu.html',
+                    async: false,
+                    success: function (menuContent) {
+                        $('#menu').html(menuContent);
+                        document.getElementById('sub_nav').classList.add('show');
+                    },
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="Login_Fail.css">
+    <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<div id = "menu"></div>
+    <div class="page-container">
+        <div class="login-form-container shadow">
+            <div class="login-form-right-side">
+                <div class="top-logo-wrap">
+                    
+                </div>
+                <h1>How does a login system work?</h1>
+                <p>In computer security, logging in is the process by which an individual gains access to a computer system by identifying and authenticating themselves.</p>
+            </div>
+            <div class="message-container">
+            <h2>로그인 실패</h2>
+				<br>
+            <input type="button" value="재 로그인" onclick="location.href='Login.html'" />
+        </div>
+	<script>
+        $(document).ready(function () {
+            // 메뉴 로드
+            $.ajax({
+                url: "../Main/Menu.html",
+                async: false,
+                success: function (menuContent) {
+                    $("#menu").html(menuContent);
+                    document.getElementById("sub_nav").classList.add("show");
+                }
+            });
+        });
+    </script>
+	</body>
+</html>

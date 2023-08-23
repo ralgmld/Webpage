@@ -1,0 +1,237 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="Member.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>명부 작성</title>
+    </head>
+    <body>
+		<main>
+        <div id="menu"></div>
+        <div class="container">
+            <div class="input-container">
+                <form>
+                    <div class="list_icon">
+                        <img src="../Image/listing.png" width="30%" class="listing-image" />
+                        <h1 style="font-weight: bold; text-align: center; margin: 5;">Listing</h1>
+                    </div>
+                    <div class="name-container">
+                        <img
+                            src="../Image/name.png"
+                            class="name-icon"
+                            width="30"
+                            height="30"
+                            alt="이름 아이콘"
+                        />
+                        <label for="name">이름:</label>
+                        <input type="text" id="name" name="name" placeholder="이름을 입력하세요" />
+                    </div>
+                    <div class="gender-container">
+                        <img
+                            src="../Image/gender.png"
+                            class="gender-icon"
+                            width="30"
+                            height="30"
+                            alt="성별 아이콘"
+                        />
+                        <label for="gender">성별:</label>
+                        <select id="gender" name="gender">
+                            <option value="">성별을 선택하세요</option>
+                            <option value="남성">남</option>
+                            <option value="여성">여</option>
+                        </select>
+                        <div class="age-container">
+                            <img
+                                src="../Image/age.png"
+                                class="age-icon"
+                                width="30"
+                                height="30"
+                                alt="나이 아이콘"
+                            />
+                            <label for="age">나이:</label>
+                            <select id="age" name="age">
+                                <option value="">나이를 선택하세요</option>
+                                <script>
+                                    for (var i = 18; i <= 130; i++) {
+                                        document.write(
+                                            '<option value="' + i + '">' + i + '세</option>'
+                                        );
+                                    }
+                                </script>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="position-container">
+                        <img
+                            src="../Image/position.png"
+                            class="position-icon"
+                            width="30"
+                            alt="직급 아이콘"
+                        />
+                        <label for="position">직급:</label>
+                        <select id="position" name="position">
+                            <option value="">직급을 선택하세요</option>
+                            <option value="사원">사원</option>
+                            <option value="대리">대리</option>
+                            <option value="과장">과장</option>
+                            <option value="부장">부장</option>
+                            <option value="이사">이사</option>
+                        </select>
+                    </div>
+
+                    <div class="job-container">
+                        <img
+                            src="../Image/job.png"
+                            class="job-icon"
+                            width="30"
+                            height="30"
+                            alt="업무 아이콘"
+                        />
+                        <label for="job">업무:</label>
+                        <input type="checkbox" id="sales" name="job" value="영업" />
+                        <label for="영업">영업</label>
+                        <input type="checkbox" id="hr" name="job" value="인사" />
+                        <label for="인사">인사</label>
+                        <input type="checkbox" id="logistics" name="job" value="물류" />
+                        <label for="물류">물류</label>
+                        <input type="checkbox" id="production" name="job" value="생산" />
+                        <label for="생산">생산</label><br>&nbsp
+                        <input type="checkbox" id="md" name="job" value="MD" />
+                        <label for="MD">MD</label>
+                        <input type="checkbox" id="accounting" name="job" value="회계" />
+                        <label for="회계">회계</label>
+                        <input type="checkbox" id="it" name="job" value="IT" />
+                        <label for="IT">IT</label>
+                    </div>
+                    
+                    <div>
+                        <button type="button" onclick="submitData()">확인</button>
+                        <button type="button" onclick="resetData()">초기화</button>
+                    </div>
+                </form>
+            </div>
+			<div id="downbutton" style="text-align: center;">
+                    <button type="button" onclick="downloadData()">데이터 다운로드</button>
+                </div>
+            <div class="result_container">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>이름</th>
+                            <th>성별</th>
+                            <th>나이</th>
+                            <th>직급</th>
+                            <th>업무</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+				</table>
+				
+			</div>
+			<div id="downbutton" style="text-align: center;">
+                    <input style=" border: 1px solid #fff;">
+				<input style=" border: 1px solid #fff;">
+                </div>
+                <script>
+                                                    $(document).ready(function () {
+                                                            // 메뉴 로드
+                                                            $.ajax({
+                                                                url: "../Main/Menu.html",
+                                                                async: false,
+                                                                success: function (menuContent) {
+                                                                    $("#menu").html(menuContent);
+                                                                    document.getElementById("sub_nav").classList.add("show");
+                                                                }
+                                                            });
+                                                        });
+                                                                        var data = [];
+
+                                        function submitData() {
+                                          var name = document.getElementById("name").value.trim();
+                                          var gender = document.getElementById("gender").value.trim();
+                                          var age = document.getElementById("age").value.trim();
+                                          var position = document.getElementById("position").value.trim();
+                                          var jobs = document.querySelectorAll('input[name="job"]:checked');
+                                    if (name === "" || gender === "" || age === "" || position === "" || jobs.length === 0) {
+                                      alert("모든 항목을 입력해주세요.");
+                                      return;
+                                   	}
+
+                                    var jobArray = [];
+                                    for (var i = 0; i < jobs.length; i++) {
+                                      jobArray.push(jobs[i].value);
+                                    }
+                                          data.push({
+                                            name: name,
+                                            gender: gender,
+                                            age: age,
+                                            position: position,
+                                            job: jobArray.join(", ")
+                                          });
+
+                                          document.getElementById("name").value = "";
+                                          document.getElementById("gender").value = "";
+                                          document.getElementById("age").value = "";
+                                          document.getElementById("position").value = "";
+                                          for (var i = 0; i < jobs.length; i++) {
+                                     			 jobs[i].checked = false;
+                    }
+
+                                          displayData();
+                                        }
+
+
+                                                                        function resetData() { <!--초기화버튼 클릭 시 작동-->
+                                                                          document.getElementById("name").value = "";
+                                                                          document.getElementById("gender").value = "";
+                                                                          document.getElementById("age").value = "";
+                                                                          document.getElementById("position").value = "";
+                                                                          var jobs = document.querySelectorAll('input[name="job"]:checked');
+                                    											for (var i = 0; i < jobs.length; i++) {
+                                      										jobs[i].checked = false;
+                                   											}
+
+                                                                        }
+
+                                                                        function displayData() {
+                                                                          var table = document.getElementById("dataTable").querySelector("tbody");
+                                                                          table.innerHTML = "";
+                                                                          for (var i = 0; i < data.length; i++) {
+                                                                            var row = table.insertRow();
+                                                                            var nameCell = row.insertCell();
+                                                                            nameCell.textContent = data[i].name;
+                                                                            var genderCell = row.insertCell();
+                                                                            genderCell.textContent = data[i].gender;
+                                                                            var ageCell = row.insertCell();
+                                                                            ageCell.textContent = data[i].age;
+                                                                            var positionCell = row.insertCell();
+                                                                            positionCell.textContent = data[i].position;
+                                                                            var jobCell = row.insertCell();
+                                                                            jobCell.textContent = data[i].job;
+                                                                          }
+                                                                        }
+
+                                                                        function downloadData() { <!--다운로드 버튼 클릭 시 작동-->
+                                                                  if (data.length === 0) { 		<!--데이터 없을 시 알림 창-->
+                                                                    alert("데이터가 없습니다.");
+                                                                    return;
+                                                                  }
+                                                                  var csvData = "이름,성별,나이,직급,업무\n";
+                                                                  for (var i = 0; i < data.length; i++) { <!--csv로 입력 데이터 저장-->
+                                                                    csvData += '"' + data[i].name + '","' + data[i].gender + '",' + data[i].age + ',"' + data[i].position + '","' + data[i].job + '"\n';
+                                                                  }
+                                                                  var downloadLink = document.createElement("a");
+                                                                  downloadLink.setAttribute("href", "data:text/csv;charset=utf-8,%EF%BB%BF" + encodeURIComponent(csvData));	<!--%EF%BB%BF 안쓸시 인코딩 오류-->
+                                                                  downloadLink.setAttribute("download", data[0].name+".csv");
+                                                                  document.body.appendChild(downloadLink);
+                                                                  downloadLink.click();
+                                                                  document.body.removeChild(downloadLink);
+                                                                }
+                </script>
+            </div>
+        <footer>
+            <p>웹 사이트 제작 : 송명원, 김희연, 장하은</p>
+        </footer>
+        </main>
+    </body>
+</html>

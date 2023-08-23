@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="Query.css" />
+        <title>SQL 쿼리</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <main></main>
+        <div id="menu"></div>
+        <div class="box-container">
+            <div class="box">
+				<div style="text-align: center;">
+					<div class="query_icon">
+						<img src = "../Image/sql.png" style="text-align:left;" width=20%>
+					</div>
+                <h1 style="font-weight: bold; text-align:left; margin:5px;">SQL Query</h1>
+                    <p style="color: #8c8c8c;" for="sqlQuery">SQL 쿼리를 작성하세요.</p>
+                    <textarea id="sqlQuery" name="sqlQuery"></textarea>
+                    <button id="queryButton">조회하기</button>
+                    <div id="resultSection" class="hidden">
+                        <table id="resultTable"></table>
+                </div>
+            </div>
+        </div>
+		</div>
+        <footer>
+            <p>웹 사이트 제작 : 송명원, 김희연, 장하은</p>
+        </footer>
+        <script src="Query.js"></script>
+        <script>
+            $(document).ready(function () {
+                // 메뉴 로드
+                $.ajax({
+                    url: '../Main/Menu.html',
+                    async: false,
+                    success: function (menuContent) {
+                        $('#menu').html(menuContent);
+                        document.getElementById('sub_nav').classList.add('show');
+                    },
+                });
+            });
+        </script>
+    </body>
+</html>

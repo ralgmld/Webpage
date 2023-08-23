@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="Home.css" />
+        <style>
+            /* h2와 p를 가운데로 정렬 */
+            main article {
+                text-align: center;
+            }
+        </style>
+        <title>FDXNETWORKS RPA TEST</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <div id="menu"></div>
+
+        <style>
+            #csvTable {
+                margin-top: 20px;
+            }
+			#result {
+        		font-size: 1.5rem; /* 원하는 크기로 조정 */
+    		}
+        </style>
+		<div style="text-align: center;">
+			<h2></h2>
+		</div>
+        <main></main>
+        <div class="box-container">
+            <div class="box">
+                <div style="text-align: center;">
+					<div class="home_icon">
+					<img src = "../Image/storage.png" width=30%>
+					</div>
+                    <!-- 문자열 처리 작업 추가 -->
+					<h1 style="font-weight: bold; text-align:left;">String Handling</h1>
+					<p style="color: #8c8c8c;">
+						일정주기마다 사용중인 용량이 랜덤으로 변화합니다.<br>
+						
+					</p>
+					
+                    <div id="result" />
+                </div>
+				<div class="result">
+                <script>
+                    function random_number(msg1, msg2) {
+                        const div = document.getElementById('result');
+                        div.innerText =
+                            msg1 + (Math.random() * 200 - 0.01 - 0.01).toFixed(2) + msg2;
+                    }
+                    
+                    random_number('총 용량 200GB / ', 'GB 사용 중'); // 첫번째 실행
+					setInterval(random_number, 5000 /* 600000 */, '총 용량 200GB / ', 'GB 사용 중'); // 이후 주기적으로 갱신
+                </script>
+					</div>
+            </div>
+        </div>
+        <footer>
+            <p>웹 사이트 제작 : 송명원, 김희연, 장하은</p>
+        </footer>
+        <script>
+            $(document).ready(function () {
+                // 메뉴 로드
+                $.ajax({
+                    url: '../Main/Menu.html',
+                    async: false,
+                    success: function (menuContent) {
+                        $('#menu').html(menuContent);
+                        document.getElementById('sub_nav').classList.add('show');
+                    },
+                });
+            });
+        </script>
+    </body>
+    <grammarly-desktop-integration
+        data-grammarly-shadow-root="true"
+    ></grammarly-desktop-integration>
+</html>
